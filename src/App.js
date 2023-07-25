@@ -1,32 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { decrease, increase } from './redux/counterSlice';
 import './App.css';
-import { decrement, increment, incrementByAmount } from './redux/counterSlice';
-import { useState } from 'react';
-// import Header from './components/Header';
-// import Main from './components/Main';
-// import Footer from './components/Footer';
+// import { useState } from 'react';
 
 function App() {
-  // sotore.jsの中にあるcounterの値→counterSliceの中のvalueの値のこと
-  const count = useSelector((state) => state.counter.value);
+  // useSelector Hookを利用することで
+  // counterSliceで設定したcountの値を取得できる
+  // stateの後に指定しているcounterは
+  // store.jsのreducerに設定したオブジェクトのプロパティのcounterに対応する
+  const count = useSelector((state) => state.counter.count);
 
+  // countの値をイジるにはAction creatorsを呼び出して
+  // それを呼び出すためにuseDispatchが必要になる
   const dispatch = useDispatch();
 
-  const [incrementAmount, setIncrementAmount] = useState("2");
   return (
     <div className="App">
-      {/* <Header />
-      <Main />
-      <Footer /> */}
-      <h1>count: {count}</h1>
-      <input onChange={(e) => setIncrementAmount(e.target.value)} value={incrementAmount} />
-      <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
-      <button
-        onClick={() => dispatch(incrementByAmount(Number(incrementAmount)))}
-      >
-        追加
-      </button>
+      <h1>Count: {count}</h1>
+      {/* Action creatorsはcounterSlice.jsでexportしているので */}
+      {/* それをimportして使う */}
+      <button onClick={() => dispatch(increase())}>Up</button>
+      <button onClick={() => dispatch(decrease())}>Down</button>
 
     </div>
   );

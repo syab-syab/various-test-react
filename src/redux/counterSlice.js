@@ -1,22 +1,27 @@
+// **Slice.jsと名付けるのが慣例になってるっぽい？
+
 import { createSlice } from "@reduxjs/toolkit";
 
 export const counterSlice = createSlice({
-    name: "counter",
+    // name=Sliceを識別するための名前
+    name: 'counter',
+    // initialState=共有するデータ(state)の初期値を設定
     initialState: {
-        value: 0
+        count: 0,
     },
+    // reducers=stateを更新するための関数を設定
     reducers: {
-        increment: (state) => {
-            state.value += 1;
+        // ここで設定した関数(increase, decrease)は
+        // 自動的に同名のAction creators を作成する
+        increase: (state) => {
+            state.count += 1
         },
-        decrement: (state) => {
-            state.value -=1;
+        decrease: (state) => {
+            state.count -= 1
         },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload;
-        }
     },
-});
+})
 
-export const {increment, decrement, incrementByAmount} = counterSlice.actions;
+export const { increase, decrease } = counterSlice.actions;
+
 export default counterSlice.reducer;
